@@ -1,18 +1,23 @@
 // your code here
- <script>
-    document.getElementById("button").addEventListener("click", function() {
-      const name = document.getElementById("name").value.trim();
-      const year = document.getElementById("year").value.trim();
-
-      let baseUrl = "https://localhost:8080/";
-
-      // Build the query string dynamically
-      let params = [];
-      if (name) params.push("name=" + encodeURIComponent(name));
-      if (year) params.push("year=" + encodeURIComponent(year));
-
-      // Update the URL text
-      const finalUrl = params.length ? baseUrl + "?" + params.join("&") : baseUrl;
-      document.getElementById("url").innerText = finalUrl;
-    });
-  </script>
+document.getElementById("button").addEventListener("click", function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById("name").value.trim();
+    const year = document.getElementById("year").value.trim();
+    
+    let baseUrl = "https://localhost:8080/";
+    let queryParams = [];
+    
+    if (name !== "") {
+        queryParams.push("name=" + encodeURIComponent(name));
+    }
+    if (year !== "") {
+        queryParams.push("year=" + year);
+    }
+    
+    const finalUrl = queryParams.length > 0 
+        ? baseUrl + "?" + queryParams.join("&") 
+        : baseUrl;
+        
+    document.getElementById("url").textContent = finalUrl;
+});
